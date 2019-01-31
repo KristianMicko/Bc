@@ -5,13 +5,15 @@
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "2790437285",
+    "hash" : "946887809",
     "id" : "ECCD8B96",
-    "lastKnownWriteTime" : 1548069462,
-    "last_content_update" : 1548069462,
+    "lastKnownWriteTime" : 1548799267,
+    "last_content_update" : 1548849710472,
     "path" : "C:/Users/User/Documents/GIT/BC/Zadanie_PA.Rmd",
     "project_path" : "Zadanie_PA.Rmd",
     "properties" : {
+        "cursorPosition" : "381,62",
+        "scrollLine" : "357"
     },
     "relative_order" : 1,
     "source_on_save" : false,

@@ -1,0 +1,247 @@
+getwd()
+transakcie = read.csv("BreadBasket_DMS.csv")
+A = summary(transakcie$Item)
+B = as.logical(summary(transakcie$Item)> 590)
+C = levels(transakcie$Item)
+pomocne = data.frame(A,B,C)
+
+Bread = summary(droplevels(transakcie[which(transakcie$Item=="Bread"),4]))
+Cake = summary(droplevels(transakcie[which(transakcie$Item=="Cake"),4]))
+Coffee= summary(droplevels(transakcie[which(transakcie$Item=="Coffee"),4]))
+Medialuna= summary(droplevels(transakcie[which(transakcie$Item=="Medialuna"),4]))
+NONE= summary(droplevels(transakcie[which(transakcie$Item=="NONE"),4]))
+Pastry= summary(droplevels(transakcie[which(transakcie$Item=="Pastry"),4]))
+Sandwich= summary(droplevels(transakcie[which(transakcie$Item=="Sandwich"),4]))
+Tea= summary(droplevels(transakcie[which(transakcie$Item=="Tea"),4]))
+Nesledovane = sum(pomocne[pomocne$B==FALSE,1])
+sum(pomocne[pomocne$B==FALSE,1])
+
+for (i in 1:7008) {
+  Nesledovane[i]= "Ostatne"
+}
+Nesledovane = as.factor(Nesledovane)
+
+Nesledovane = summary(Nesledovane) 
+
+
+sledovane = c(Bread,Cake,Coffee,Medialuna,NONE,Pastry,Sandwich,Tea,Nesledovane)
+pct = round(sledovane/sum(sledovane)*100)
+sledovane_1 = data.frame(A = c("Bread","Cake","Coffee","Medialuna","NONE","Pastry","Sandwich","Tea","Ostatne"), B=sledovane, C=pct)
+j = paste(sledovane_1$A, sledovane_1$C, sep = " ")
+j = paste(j, "%", sep = "")
+pie(sledovane_1$B, labels = j, col = rainbow(length(sledovane_1$B)), main = "Graf s rozdelenim predanych poloziek za sledovane obdobie")
+barplot(sledovane, col = rainbow(length(sledovane)))
+library(lubridate)
+spojeneTabulky_1 = readRDS("BCfinal.rda")
+spojeneTabulky_1$IndexPolozky = NULL
+#summary(spojeneTabulky_1)
+duplicated(spojeneTabulky_1)
+unique(spojeneTabulky_1)
+spojeneTabulky_1 = unique(spojeneTabulky_1)
+
+
+
+spojeneTabulky_1$Dni = relevel(spojeneTabulky_1$Dni, "Nedela")
+spojeneTabulky_1$Dni = relevel(spojeneTabulky_1$Dni, "Sobota")
+spojeneTabulky_1$Dni = relevel(spojeneTabulky_1$Dni, "Piatok")
+spojeneTabulky_1$Dni = relevel(spojeneTabulky_1$Dni, "Stvrtok")
+spojeneTabulky_1$Dni = relevel(spojeneTabulky_1$Dni, "Streda")
+spojeneTabulky_1$Dni = relevel(spojeneTabulky_1$Dni, "Utorok")
+spojeneTabulky_1$Dni = relevel(spojeneTabulky_1$Dni, "Pondelok")
+Dni_2 = summary(spojeneTabulky_1$Dni)
+barplot(Dni_2,col = rainbow(length(Dni_2)), main = "Pocet poloziek predanych v jednotlivych dnoch pocas tyzdna")
+library(lattice)
+opilun = data.frame(table(spojeneTabulky_1$hms.Hodiny..hour,spojeneTabulky_1$Dni))
+najpredavanejsie_casy = table(spojeneTabulky_1$Item,spojeneTabulky_1$hms.Hodiny..hour)
+najpredavanejsie_casy = data.frame(najpredavanejsie_casy)
+xyplot(Freq~ Var1| Var2, data=opilun)
+G = najpredavanejsie_casy[which(najpredavanejsie_casy$Freq>33),1:3]
+G$Var1 = droplevels(G$Var1)
+xyplot(Freq~ Var2| Var1, data=G)
+sladkosti = c("Victorian Sponge","Vegan mincepie","Valentine's card","Tiffin","Truffles","The BART","Spread","Siblings"
+              ,"Scone","Raw bars","Raspberry shortbread sandwich","Pick and Mix Bowls","My-5 Fruit Shoot","Muffin","Muesli"
+              ,"Medialuna","Kids biscuit","Chocolates","Honey","Cherry me Dried fruit","Dulce de Leche","Bread Pudding"
+              ,"Fairy Doors","Alfajores","Cake","Cookies","Art Tray" ,"Brownie")
+pecivoNesl = c("Toast","Vegan Feast","Baguette","Bread","Sandwich","Scandinavian","Pintxos")
+ostatnePolozky = c("Adjustment","Afternoon with the baker","Argentina Night","Bacon","Bakewell","Bare Popcorn",                 
+                   "Basket","Bowl Nic Pitt","Brioche and salami","Caramel bites","Crepes","Crisps","Duck egg","Empanadas",
+                   "Extra Salami or Feta","Farm House","Focaccia","Frittata","Fudge","Gift voucher","Granola","Hack the stack",               
+                   "Half slice Monster ","Hearty & Seasonal","Chicken sand","Chicken Stew","Chimichurri Oil","Christmas common","Jam","Jammie Dodgers",               
+                   "Keeping It Local","Mighty Protein","Mortimer","Nomad bag","NONE","Olum & polenta","Panatone","Pastry","Polenta","Postcard",                      
+                   "Salad","Spanish Brunch","Tacos/Fajita","Tartine","The Nomad","Tshirt","Eggs")
+
+
+napoje = c("Coffee","Coke","Drinking chocolate spoons", "Ella's Kitchen Pouches",
+           "Gingerbread syrup","Hot chocolate","Juice","Lemon and coconut",
+           "Mineral water", "Soup","Smoothies","Tea","Coffee granules")
+
+
+Celkovy_Index = 1:21293
+spojeneTabulky_1$IndexPolozky = Celkovy_Index
+
+spojeneTabulky_1$Polozky = c(NA)
+
+#Sladkosti
+Sladkosti = spojeneTabulky_1[which(spojeneTabulky_1$Item==sladkosti[1]|spojeneTabulky_1$Item==sladkosti[2]
+                                   |spojeneTabulky_1$Item==sladkosti[3]
+                                   |spojeneTabulky_1$Item==sladkosti[4]
+                                   |spojeneTabulky_1$Item==sladkosti[5]
+                                   |spojeneTabulky_1$Item==sladkosti[6]
+                                   |spojeneTabulky_1$Item==sladkosti[7]
+                                   |spojeneTabulky_1$Item==sladkosti[8]
+                                   |spojeneTabulky_1$Item==sladkosti[9]
+                                   |spojeneTabulky_1$Item==sladkosti[10]
+                                   |spojeneTabulky_1$Item==sladkosti[11]
+                                   |spojeneTabulky_1$Item==sladkosti[12]
+                                   |spojeneTabulky_1$Item==sladkosti[13]
+                                   |spojeneTabulky_1$Item==sladkosti[14]
+                                   |spojeneTabulky_1$Item==sladkosti[15]
+                                   |spojeneTabulky_1$Item==sladkosti[16]
+                                   |spojeneTabulky_1$Item==sladkosti[17]
+                                   |spojeneTabulky_1$Item==sladkosti[18]
+                                   |spojeneTabulky_1$Item==sladkosti[19]
+                                   |spojeneTabulky_1$Item==sladkosti[20]
+                                   |spojeneTabulky_1$Item==sladkosti[21]
+                                   |spojeneTabulky_1$Item==sladkosti[22]
+                                   |spojeneTabulky_1$Item==sladkosti[23]
+                                   |spojeneTabulky_1$Item==sladkosti[24]
+                                   |spojeneTabulky_1$Item==sladkosti[25]
+                                   |spojeneTabulky_1$Item==sladkosti[26]
+                                   |spojeneTabulky_1$Item==sladkosti[27]
+                                   |spojeneTabulky_1$Item==sladkosti[28]
+),"IndexPolozky"]
+
+
+
+
+for(i in 1:4174){
+  spojeneTabulky_2_1$Polozky = ifelse(spojeneTabulky_2_1$IndexPolozky == Sladkosti[i]|spojeneTabulky_2_1$Polozky== "Sladkosti", "Sladkosti",NA)
+}  
+
+
+OstatnePolozky = spojeneTabulky_1[which(spojeneTabulky_1$Item==ostatnePolozky[1]|spojeneTabulky_1$Item==ostatnePolozky[2]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[3]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[4]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[5]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[6]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[7]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[8]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[9]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[10]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[11]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[12]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[13]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[14]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[15]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[16]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[17]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[18]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[19]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[20]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[21]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[22]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[23]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[24]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[25]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[26]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[27]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[28]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[29]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[30]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[31]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[32]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[33]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[34]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[35]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[36]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[37]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[38]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[39]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[40]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[41]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[42]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[43]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[44]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[45]
+                                        |spojeneTabulky_1$Item==ostatnePolozky[46]
+                                        
+),"IndexPolozky"]
+
+length(OstatnePolozky)
+
+for(i in 1:3574){
+  spojeneTabulky_2_1$Polozky[spojeneTabulky_2_1$IndexPolozky == OstatnePolozky[i]|spojeneTabulky_2_1$Polozky=="OstatnePolozky"] = "OstatnePolozky" 
+} 
+
+PecivoNesl = spojeneTabulky_1[which(spojeneTabulky_1$Item==pecivoNesl[1]|spojeneTabulky_1$Item==pecivoNesl[2]
+                                    |spojeneTabulky_1$Item==pecivoNesl[3]
+                                    |spojeneTabulky_1$Item==pecivoNesl[4]
+                                    |spojeneTabulky_1$Item==pecivoNesl[5]
+                                    |spojeneTabulky_1$Item==pecivoNesl[6]
+                                    
+                                    
+),"IndexPolozky"]
+
+
+length(PecivoNesl)
+for (i in 1:4859) {
+  spojeneTabulky_2_1$Polozky[spojeneTabulky_2_1$IndexPolozky == PecivoNesl[i]|spojeneTabulky_2_1$Polozky=="PecivoNesl"] = "PecivoNesl" 
+}
+
+
+Napoje = spojeneTabulky_1[which(spojeneTabulky_1$Item==napoje[1]|spojeneTabulky_1$Item==napoje[2]
+                                |spojeneTabulky_1$Item==napoje[3]
+                                |spojeneTabulky_1$Item==napoje[4]
+                                |spojeneTabulky_1$Item==napoje[5]
+                                |spojeneTabulky_1$Item==napoje[6]
+                                |spojeneTabulky_1$Item==napoje[7]
+                                |spojeneTabulky_1$Item==napoje[8]
+                                |spojeneTabulky_1$Item==napoje[9]
+                                |spojeneTabulky_1$Item==napoje[10]
+                                |spojeneTabulky_1$Item==napoje[11]
+                                |spojeneTabulky_1$Item==napoje[12]
+                                |spojeneTabulky_1$Item==napoje[13]
+),"IndexPolozky"]
+
+length(Napoje)
+for (i in 1:8637) {
+  spojeneTabulky_2_1$Polozky[spojeneTabulky_2_1$IndexPolozky == Napoje[i]|spojeneTabulky_2_1$Polozky=="Napoje"] = "Napoje" 
+}
+spojeneTabulky_2_1[which(is.na(spojeneTabulky_2_1$Polozky)),]
+spojeneTabulky_2_1$Polozky[spojeneTabulky_2_1$Item == "Eggs"] = "OstatnePolozky"
+spojeneTabulky_2_1$Polozky[spojeneTabulky_2_1$Item == "Pintxos"] = "PecivoNesl"
+spojeneTabulky_2_1$Polozky[is.na(spojeneTabulky_2_1$Polozky)] = "Napoje"
+spojeneTabulky_2_1$IndexPolozky = NULL
+
+saveRDS(spojeneTabulky_2_1, "FinalneBcTriedenie.rda")
+
+Napoje$Polozky = "Napoj"
+OstatnePolozky$Polozky = "OstatnePolozky"
+PecivoNesl$Polozky = "PecivoNesladke"
+Sladkosti$Polozky = "Sladkosti"
+spojeneTabulky_1_1 =  rbind(Napoje,PecivoNesl,OstatnePolozky,Sladkosti)
+spojeneTabulky_1_1 = spojeneTabulky_1_1[order(spojeneTabulky_1_1$IndexPolozky),]
+spojeneTabulky_1_1$Polozky = as.factor(spojeneTabulky_1_1$Polozky)
+
+spojeneTabulky_1 = readRDS("FinalneBcTriedenie.rda")
+
+library(arules)
+library(arulesViz)
+
+nieco=spojeneTabulky_1[,c(3,11)]
+write.csv(nieco, "modifikovaneTrans.csv", quote= FALSE, row.names = FALSE)
+selektovaneTransakcie = as(spojeneTabulky_1[,11],"transactions")
+spojeneTabulky_1$Transaction = as.factor(spojeneTabulky_1$Transaction)
+spojeneTabulky_1$Polozky = as.factor(spojeneTabulky_1$Polozky)
+selektovaneTransakcie = read.transactions("modifikovaneTrans.csv",format="single",cols=c(1,2),sep=",")
+#selektovaneTransakcie = read.transactions("BreadBasket_DMS.csv",format="single",cols=c(3,4),sep=",")
+#selektovaneTransakcie = read.transactions(spojeneTabulky_1, format = "single", cols = c(3,11))
+summary(itemFrequency(selektovaneTransakcie))
+pravidla <- apriori(selektovaneTransakcie,parameter=list(support=0.0047,confidence=.2))
+inspect(pravidla)
+plot(pravidla, measure=c("support","lift"), shading="confidence")
+plot(pravidla, method = "two-key plot")
+plot(pravidla, method="graph")
+plot(pravidla, method="grouped")
+plot(pravidla, method="paracoord", control=list(reorder=TRUE))
+

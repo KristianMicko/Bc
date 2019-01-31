@@ -367,7 +367,7 @@ ako vstupne parametre urcime
 podpora = 0,0045 a spolahlivost = 50% = 0,5
 
 ```{r}
-pravidla <- apriori(selektovaneTransakcie,parameter=list(support=0.0045,confidence=.5))
+pravidla <- apriori(selektovaneTransakcie,parameter=list(support=0.0001,confidence=.5))
 inspect(pravidla)
 
 ```

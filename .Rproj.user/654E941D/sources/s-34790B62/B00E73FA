@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1548920697961.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "B00E73FA",
+    "lastKnownWriteTime" : 13229817834242158,
+    "last_content_update" : 1548920697961,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "B8718628",
+        "caption" : "spojeneTabulky",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=spojeneTabulky&cache_key=B8718628",
+        "displayedObservations" : 21293,
+        "environment" : "",
+        "object" : "spojeneTabulky",
+        "preview" : 0,
+        "totalObservations" : 21293,
+        "variables" : 11
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}
