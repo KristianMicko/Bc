@@ -1,0 +1,86 @@
+---
+title: "Bc_Praca"
+author: "Ja"
+date: "6 februára 2019"
+output: html_document
+---
+
+##Grafy zastupenia jednotlivych poloziek
+
+![Podiel kategorii poloziek](Rplot04.png)
+
+
+####Percentualne rozdelenie
+
+40,63% Napoje
+
+22,85% Nesladke Pecivo
+
+19,6% Sladkosti
+
+16,92% Ostatne (nezaradene polozky)
+
+
+![Napoje](Rplot02.png)
+
+####Percentualne rozdelenie
+
+63,23% Coffee 
+
+6,82% Hot Chocolate
+
+16,59% Tea
+
+13,36% Others
+
+
+![Nesladke Pecivo](Rplot01.png)
+
+####Percentualne rozdelenie
+
+68,35% Bread
+
+15,85% Sandwich
+
+0,12% Pintxos
+
+5,69% Scandinavian
+
+6,54% Toast
+
+0,33% Vegan Feast
+
+3,12% Baguette
+
+
+![Sladkosti](Rplot.png)
+
+
+####Percentualne rozdelenie
+
+7,83% Scone
+
+8,86% Muffin
+
+14,76% Medialuna
+
+12,94% Cookies
+
+24,56% Cake
+
+9,08% Brownie
+
+8,84% Alfajores
+
+13,13% Others
+
+
+
+![Ostatne](Rplot03.png)
+
+
+####Percentualne rozdelenie
+
+23,76% Pastry
+
+76,24% Others

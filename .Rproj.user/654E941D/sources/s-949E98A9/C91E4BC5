@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1549295677648.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "C91E4BC5",
+    "lastKnownWriteTime" : 1548919563,
+    "last_content_update" : 1548919563,
+    "path" : "C:/Users/User/Documents/GIT/BC/AsociacnePravidla/server.R",
+    "project_path" : "AsociacnePravidla/server.R",
+    "properties" : {
+        "cursorPosition" : "48,5",
+        "scrollLine" : "31"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

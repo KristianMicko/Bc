@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1549457805743.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "F4EE6C24",
+    "lastKnownWriteTime" : 7434725494113981779,
+    "last_content_update" : 1549457805743,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "6C34B230",
+        "caption" : "najpredavanejsie_casy",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=najpredavanejsie_casy&cache_key=6C34B230",
+        "displayedObservations" : 72,
+        "environment" : "",
+        "object" : "najpredavanejsie_casy",
+        "preview" : 0,
+        "totalObservations" : 72,
+        "variables" : 3
+    },
+    "relative_order" : 8,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}
