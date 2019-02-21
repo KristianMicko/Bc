@@ -22,18 +22,22 @@ shinyUI(fluidPage(
             ),
             tabPanel("Tab 2", verticalLayout(
                             h1("Modelovanie"),
-                            #plotOutput("Graf"),
+                            
                             htmlOutput("SelectUI_1"),
                             htmlOutput("SelectUI_2"),
-                            actionButton("Uloz","Zapis")
+                            actionButton("Uloz","Zapis"),
+                            plotOutput("Graf"),
+                            verbatimTextOutput("Summary"),
+                            h3("Chybajuce hodnoty"),
+                            verbatimTextOutput("NaValues")
                             )
             ),
             tabPanel("Tab 3", verticalLayout(
               #selectInput("VyberGrafu2","Vyber", c("Basic","two-key plot","graph","grouped","paracoord")),
               fileInput("Subor_2", "Vyber suboru pre spracovanie"),
               selectInput("VyberGrafu2","Vyber", c("Basic","two-key plot","graph","grouped","paracoord")),
-              numericInput("VstupSupport","minimalna podpora",value = 0.05, min = 0, max = 1),
-              numericInput("VstupSpolahlivost","minimalna spolahlivost",value = 0.05, min = 0, max = 1),
+              textInput("VstupSupport","minimalna podpora",value = 0.05),
+              textInput("VstupSpolahlivost","minimalna spolahlivost",value = 0.05),
               plotOutput("Graf_3"),
               verbatimTextOutput("AsociacnePravidla")
               #selectInput("VyberHodnoty_1","Zadaja hodnotu spolahlivosti",c(.1,.2,.3,.4,.5,.6,.7))

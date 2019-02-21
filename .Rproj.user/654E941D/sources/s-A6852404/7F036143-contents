@@ -114,3 +114,12 @@ plot(pravidla, method="graph")
 plot(pravidla, method="grouped")
 plot(pravidla, method="paracoord", control=list(reorder=TRUE))
 itemFrequencyPlot(selektovaneTransakcie, support = 0.01)
+
+
+A = c(1,2,3,4,5,6)
+B = c("K", "l", "nieco")
+
+nieco = data.frame(A,B)
+
+is.na(nieco)
+any(is.na(nieco))

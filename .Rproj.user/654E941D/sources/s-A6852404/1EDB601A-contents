@@ -31,11 +31,11 @@ shinyServer(function(input, output) {
   
   
    
-  #output$Graf = renderPlot({
+  output$Graf = renderPlot({
         
-  #      plot(x = analyza[,input$Axes_x], y = analyza[,input$Axes_y])
+        plot(x = analyza[,input$Axes_x], y = analyza[,input$Axes_y], xlab = input$Axes_x, ylab = input$Axes_y)
         
- # })
+  })
   
   output$SelectUI_1 = renderUI({
         
@@ -59,7 +59,7 @@ shinyServer(function(input, output) {
         if(is.null(nacitanie_1))
           return(NULL)
         selektovaneTransakcie <- read.transactions(nacitanie_1$datapath,format="single",cols=c(1,2),sep=",")
-        pravidla <- apriori(selektovaneTransakcie,parameter=list(support=input$VstupSupport,confidence=input$VstupSpolahlivost, minlen=2))
+        pravidla <- apriori(selektovaneTransakcie,parameter=list(support=as.numeric(input$VstupSupport),confidence=as.numeric(input$VstupSpolahlivost), minlen=2))
         plot(pravidla, measure=c("support","lift"), shading="confidence")
         if(input$VyberGrafu2 == "Basic"){
           plot(pravidla, measure=c("support","lift"), shading="confidence")
@@ -85,7 +85,21 @@ shinyServer(function(input, output) {
         if(is.null(nacitanie_1))
           return(NULL)
         selektovaneTransakcie <- read.transactions(nacitanie_1$datapath,format="single",cols=c(1,2),sep=",")
-        pravidla <- apriori(selektovaneTransakcie,parameter=list(support=input$VstupSupport,confidence=input$VstupSpolahlivost, minlen=2))
+        pravidla <- apriori(selektovaneTransakcie,parameter=list(support=as.numeric(input$VstupSupport),confidence=as.numeric(input$VstupSpolahlivost), minlen=2))
         inspect(pravidla)
+  })
+  
+  
+  output$Summary = renderPrint({
+        summary(analyza)
+  })
+  
+  
+  output$NaValues = renderPrint({
+        if(any(is.na(analyza))){
+            print("Obsahuje chybajuce hodnoty")
+        }else{
+            print("Neobsahuje chybajuce hodnoty")
+        }
   })
 })

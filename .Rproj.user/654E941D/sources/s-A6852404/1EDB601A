@@ -5,15 +5,15 @@
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "0",
+    "hash" : "2092074735",
     "id" : "1EDB601A",
-    "lastKnownWriteTime" : 1549413095,
-    "last_content_update" : 1549413095848,
+    "lastKnownWriteTime" : 1550743789,
+    "last_content_update" : 1550743789909,
     "path" : "C:/Users/User/Documents/GIT/BC/ShinyAplikacia/server.R",
     "project_path" : "ShinyAplikacia/server.R",
     "properties" : {
-        "cursorPosition" : "60,15",
-        "scrollLine" : "62"
+        "cursorPosition" : "99,37",
+        "scrollLine" : "73"
     },
     "relative_order" : 4,
     "source_on_save" : false,
